@@ -33,10 +33,16 @@ cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 get_next_line_bonus.c get_next_line_u
 Using the Makefile:
 
 ```sh
-make        # builds mandatory
-make bonus  # builds bonus
-make re     # clean rebuild
+make                     # builds mandatory (default BUFFER_SIZE=42)
+make BUFFER_SIZE=1       # builds with BUFFER_SIZE=1
+make BUFFER_SIZE=9999    # builds with BUFFER_SIZE=9999
+make bonus               # builds bonus (default BUFFER_SIZE=42)
+make bonus BUFFER_SIZE=5 # builds bonus with custom BUFFER_SIZE
+make re                  # clean rebuild
 ```
+
+Omitting `BUFFER_SIZE` from the `make` command uses the default value defined in the
+header file (42).
 
 ### Usage
 
