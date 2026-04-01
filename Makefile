@@ -6,13 +6,16 @@
 #    By: lucas <lucas@tsiaraso.com>                   +########+               #
 #                                                           +###+              #
 #    Created: 2026/04/01 10:50:44 by lucas                   ##+               #
-#    Updated: 2026/04/01 10:50:44 by lucas                  #+                 #
+#    Updated: 2026/04/01 10:52:59 by lucas                  #+                 #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= libgnl.a
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
+ifdef BUFFER_SIZE
+CFLAGS		+= -D BUFFER_SIZE=$(BUFFER_SIZE)
+endif
 
 SRCS		= get_next_line.c get_next_line_utils.c
 OBJS		= $(SRCS:.c=.o)
