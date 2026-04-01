@@ -66,6 +66,47 @@ int main(void)
 }
 ```
 
+### Multi-fd Usage (Bonus)
+
+The bonus version tracks each file descriptor independently, so you can interleave
+reads from multiple files without losing your place in any of them:
+
+```c
+#include "get_next_line_bonus.h"
+#include <fcntl.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int   fd1 = open("file_a.txt", O_RDONLY);
+    int   fd2 = open("file_b.txt", O_RDONLY);
+    char  *line;
+
+    line = get_next_line(fd1);     // reads line 1 from file_a
+    printf("A: %s", line);
+    free(line);
+
+    line = get_next_line(fd2);     // reads line 1 from file_b
+    printf("B: %s", line);
+    free(line);
+
+    line = get_next_line(fd1);     // resumes at line 2 of file_a
+    printf("A: %s", line);
+    free(line);
+
+    line = get_next_line(fd2);     // resumes at line 2 of file_b
+    printf("B: %s", line);
+    free(line);
+
+    close(fd1);
+    close(fd2);
+    return (0);
+}
+```
+
+Each fd has its own stash, so switching between descriptors never mixes up their
+reading positions.
+
 ## Algorithm
 
 ### Overview
