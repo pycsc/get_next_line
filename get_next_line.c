@@ -17,6 +17,8 @@ static char	*read_and_stash(int fd, char *stash)
 	char	*buf;
 	int		rd;
 
+	if (!stash)
+		stash = ft_calloc(1, 1);
 	buf = malloc((size_t)BUFFER_SIZE + 1);
 	if (!buf)
 		return (NULL);
