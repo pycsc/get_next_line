@@ -44,6 +44,29 @@ make re                  # clean rebuild
 Omitting `BUFFER_SIZE` from the `make` command uses the default value defined in the
 header file (42).
 
+## Testing
+
+Run each test tier independently from the repository root:
+
+```sh
+tests/run_unit.sh
+tests/run_functional.sh
+tests/run_integration.sh
+tests/run_e2e.sh
+tests/run_acceptance.sh
+tests/run_performance.sh
+tests/run_smoke.sh
+```
+
+The unit, functional, and integration runners compile with strict warnings and
+AddressSanitizer/UndefinedBehaviorSanitizer. The E2E runner builds the mandatory
+and bonus archives through the project Makefile. Acceptance covers buffer sizes
+1, 42, and 9999 and verifies independent bonus file-descriptor state.
+
+The performance test consumes a deterministic 20,000-line fixture with a
+two-second CPU budget and a five-second hard CPU limit. Every runner uses a
+private temporary directory and removes generated artifacts on exit.
+
 ### Usage
 
 ```c
