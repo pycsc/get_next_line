@@ -7,15 +7,16 @@
 #    By: lucas <lucas@tsiaraso.com>                     +########+             #
 #                                                           +###+              #
 #    Created: 2026/11/17 19:44:24 by lucas                   ##+               #
-#    Updated: 2026/11/17 19:44:24 by lucas                  #+                 #
+#    Updated: 2026/11/17 20:10:50 by lucas                  #+                 #
 #                                                                              #
 # **************************************************************************** #
 
 set -euo pipefail
 IFS=$'\n\t'
 
-readonly TEST_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-readonly TEST_TMP="$(mktemp -d "${TMPDIR:-/tmp}/gnl-performance.XXXXXX")"
+TEST_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TEST_TMP="$(mktemp -d "${TMPDIR:-/tmp}/gnl-performance.XXXXXX")"
+readonly TEST_ROOT TEST_TMP
 trap 'rm -rf "${TEST_TMP}"' EXIT ERR INT TERM
 
 awk 'BEGIN { for (i = 0; i < 20000; i++) printf "%064d\n", i }' \

@@ -7,15 +7,16 @@
 #    By: lucas <lucas@tsiaraso.com>                     +########+             #
 #                                                           +###+              #
 #    Created: 2026/11/17 19:43:17 by lucas                   ##+               #
-#    Updated: 2026/11/17 19:43:17 by lucas                  #+                 #
+#    Updated: 2026/11/17 20:10:50 by lucas                  #+                 #
 #                                                                              #
 # **************************************************************************** #
 
 set -euo pipefail
 IFS=$'\n\t'
 
-readonly TEST_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-readonly TEST_TMP="$(mktemp -d "${TMPDIR:-/tmp}/gnl-acceptance.XXXXXX")"
+TEST_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TEST_TMP="$(mktemp -d "${TMPDIR:-/tmp}/gnl-acceptance.XXXXXX")"
+readonly TEST_ROOT TEST_TMP
 readonly TEST_CFLAGS="-std=c11 -Wall -Wextra -Werror -Wpedantic"
 readonly -a TEST_FLAGS=(-std=c11 -Wall -Wextra -Werror -Wpedantic)
 trap 'make -C "${TEST_ROOT}" fclean >/dev/null; \
